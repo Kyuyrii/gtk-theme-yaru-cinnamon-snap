@@ -1,0 +1,43 @@
+name: gtk-theme-yaru-cinnamon
+build-base: core24
+base: bare
+version: '25.04.1'
+platforms:
+  all:
+    build-on: [amd64]
+    build-for: [all]
+summary: Yaru cinnamon GTK theme
+description: |
+  A Snap that allows you to use Yaru cinnamon GTK theme in Snap apps
+grade: stable
+confinement: strict
+
+slots:
+  gtk-2-themes:
+    interface: content
+    source:
+      read:
+        - $SNAP/share/gtk2/Yaru-cinnamon
+        - $SNAP/share/gtk2/Yaru-cinnamon-dark
+  gtk-3-themes:
+    interface: content
+    source:
+      read:
+        - $SNAP/share/themes/Yaru-cinnamon
+        - $SNAP/share/themes/Yaru-cinnamon-dark
+parts:
+  gtk-2-themes:
+    plugin: dump
+    source: http://archive.ubuntu.com/ubuntu/pool/universe/u/ubuntucinnamon-environment/yaru-cinnamon-theme-gtk_25.04.1_all.deb
+    organize:
+      usr/share/themes: share/gtk2
+    prime:
+      - share/gtk2/*/gtk-2.0
+  gtk-3-themes:
+    plugin: dump
+    source: http://archive.ubuntu.com/ubuntu/pool/universe/u/ubuntucinnamon-environment/yaru-cinnamon-theme-gtk_25.04.1_all.deb
+    organize:
+      usr/share/themes: share/themes
+    prime:
+      - share/themes/*/gtk-3.0
+      - share/themes/*/gtk-4.0
